@@ -10,7 +10,13 @@ import {
   RigidBody
 } from '@react-three/rapier';
 import { useRef } from 'react';
+import styled from 'styled-components';
 import * as THREE from 'three';
+
+const CanvasContainer = styled.div`
+  height: 100vh;
+  width: 100%;
+`;
 
 THREE.ColorManagement.legacyMode = false;
 const baubleMaterial = new THREE.MeshLambertMaterial({
@@ -109,33 +115,35 @@ function Pointer({ vec = new THREE.Vector3() }) {
 }
 
 export const MainCanvas = () => (
-  <Canvas
-    shadows
-    gl={{ alpha: true, stencil: false, depth: false, antialias: false }}
-    camera={{ position: [0, 0, 20], fov: 32.5, near: 1, far: 100 }}
-    onCreated={(state) => (state.gl.toneMappingExposure = 1.5)}
-  >
-    <ambientLight intensity={1} />
-    <spotLight
-      position={[20, 20, 25]}
-      penumbra={1}
-      angle={0.2}
-      color="white"
-      castShadow
-      shadow-mapSize={[512, 512]}
-    />
-    <directionalLight position={[0, 5, -4]} intensity={4} />
-    <directionalLight position={[0, -15, -0]} intensity={4} color="red" />
+  <CanvasContainer id="landing">
+    <Canvas
+      shadows
+      gl={{ alpha: true, stencil: false, depth: false, antialias: false }}
+      camera={{ position: [0, 0, 20], fov: 32.5, near: 1, far: 100 }}
+      onCreated={(state) => (state.gl.toneMappingExposure = 1.5)}
+    >
+      <ambientLight intensity={1} />
+      <spotLight
+        position={[20, 20, 25]}
+        penumbra={1}
+        angle={0.2}
+        color="white"
+        castShadow
+        shadow-mapSize={[512, 512]}
+      />
+      <directionalLight position={[0, 5, -4]} intensity={4} />
+      <directionalLight position={[0, -15, -0]} intensity={4} color="red" />
 
-    <Physics gravity={[0, 0, 0]}>
-      <Pointer />
-      {
-        baubles.map((props, i) => <Bauble key={i} {...props} />) /* prettier-ignore */
-      }
-    </Physics>
-    <Environment files="/adamsbridge.hdr" />
-    <EffectComposer disableNormalPass>
-      <N8AO color="red" aoRadius={2} intensity={1.15} />
-    </EffectComposer>
-  </Canvas>
+      <Physics gravity={[0, 0, 0]}>
+        <Pointer />
+        {
+          baubles.map((props, i) => <Bauble key={i} {...props} />) /* prettier-ignore */
+        }
+      </Physics>
+      <Environment files="/adamsbridge.hdr" />
+      <EffectComposer disableNormalPass>
+        <N8AO color="red" aoRadius={2} intensity={1.15} />
+      </EffectComposer>
+    </Canvas>
+  </CanvasContainer>
 );
