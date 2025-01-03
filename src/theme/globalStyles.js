@@ -15,7 +15,6 @@ export const GlobalStyles = createGlobalStyle`
     background: ${({ theme }) => theme.background};
     color: ${({ theme }) => theme.text};
     font-family: var(--font-centuryGothic);
-
   }
 
   h2,h4{
@@ -33,7 +32,7 @@ export const GlobalStyles = createGlobalStyle`
 `;
 
 export const FullPage = styled.div`
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
