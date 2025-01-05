@@ -9,12 +9,17 @@ export const GlobalStyles = createGlobalStyle`
 }
 
   html,body,main {
-    margin: 0 ;
+    margin: 0;
     padding: 0px 1rem;
     /* background: linear-gradient(180deg, #e6eaf5 0%, #f6f6f6 80%); */
     background: ${({ theme }) => theme.background};
     color: ${({ theme }) => theme.text};
     font-family: var(--font-centuryGothic);
+  }
+
+  main {
+    max-width: 98rem;
+    margin-inline: auto;
   }
 
   h2,h4{
