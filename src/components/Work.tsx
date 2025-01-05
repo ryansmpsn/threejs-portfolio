@@ -24,6 +24,7 @@ const ProjectRow = styled.div`
 const HalfSizeProject = styled.div`
   width: 25%;
 `;
+
 const FullSizeProject = styled.div`
   width: 55%;
 `;
@@ -35,6 +36,7 @@ const StackedHighlightedProjects = styled.div`
   align-items: end;
   gap: 1rem;
 `;
+
 const CenteredHighlightedProject = styled.div`
   width: 100%;
   display: flex;
