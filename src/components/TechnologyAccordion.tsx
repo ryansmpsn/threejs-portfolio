@@ -39,7 +39,7 @@ const TechnologyTitle = styled.p`
   margin: 0;
 `;
 
-const TechnologyDescription = styled.div`
+const TechnologyDescription = styled.p`
   font-size: 0.875rem;
   text-align: center;
 `;
@@ -77,7 +77,7 @@ export const TechnologyAccordion: React.FC<TechnologyAccordionProps> = ({
 
   const openAnimation = useSpring({
     from: { height: '20px' },
-    to: { height: open ? `${accordionHeight + 20}px` : '20px' },
+    to: { height: open ? `${accordionHeight + 40}px` : '20px' },
     config: config.stiff
   });
 

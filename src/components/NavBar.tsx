@@ -11,7 +11,6 @@ const MainNav = styled.nav`
   display: flex;
   height: 4rem;
   align-items: center;
-  background-color: ${({ theme }) => theme.background};
   justify-content: space-between;
   z-index: 1;
 `;

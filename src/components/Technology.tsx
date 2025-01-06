@@ -17,6 +17,7 @@ const TechnologyGrid = styled.div`
   grid-template-rows: repeat(3, auto);
   font-size: 1.5rem;
   gap: 1rem;
+  margin-top: 6rem;
 `;
 
 export const Technology = () => (
@@ -38,37 +39,37 @@ export const Technology = () => (
       />
       <TechnologyAccordion
         technologyTitle="Next.js"
-        technologyDescription="A JavaScript library for building user interfaces."
+        technologyDescription="A JavaScript framework for building server-side rendered React applications."
         style={{ gridColumn: '3/4' }}
       />
       <TechnologyAccordion
-        technologyTitle="Vue.js"
-        technologyDescription="A JavaScript library for building user interfaces."
+        technologyTitle="Angular"
+        technologyDescription="A JavaScript framework for building user interfaces."
         style={{ gridColumn: '5/6' }}
       />
       <TechnologyAccordion
-        technologyTitle="Angular"
-        technologyDescription="A JavaScript library for building user interfaces."
+        technologyTitle="Three.js"
+        technologyDescription="A TypeScript-based open-source web application framework."
         style={{ gridColumn: '2/3' }}
       />
       <TechnologyAccordion
-        technologyTitle="Node.js "
-        technologyDescription="A JavaScript library for building user interfaces."
+        technologyTitle="Konva.js"
+        technologyDescription="A JavaScript runtime built on Chrome's V8 JavaScript engine."
         style={{ gridColumn: '4/5' }}
       />
       <TechnologyAccordion
         technologyTitle="Go"
-        technologyDescription="A JavaScript library for building user interfaces."
+        technologyDescription="An open-source programming language that makes it easy to build simple, reliable, and efficient software."
         style={{ gridColumn: '1/2' }}
       />
       <TechnologyAccordion
-        technologyTitle="Python"
-        technologyDescription="A JavaScript library for building user interfaces."
+        technologyTitle="React Native"
+        technologyDescription="A high-level, interpreted programming language with dynamic semantics."
         style={{ gridColumn: '3/4' }}
       />
       <TechnologyAccordion
-        technologyTitle="Ruby"
-        technologyDescription="A JavaScript library for building user interfaces."
+        technologyTitle="Python"
+        technologyDescription="A dynamic, open-source programming language with a focus on simplicity and productivity."
         style={{ gridColumn: '5/6' }}
       />
     </TechnologyGrid>

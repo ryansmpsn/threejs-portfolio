@@ -21,6 +21,7 @@ const ContactDetails = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
+  gap: 4rem;
 `;
 
 const ContactColumn = styled.div`

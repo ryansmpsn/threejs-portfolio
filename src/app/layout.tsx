@@ -2,9 +2,8 @@ import type { Metadata } from 'next';
 
 import { centuryGothic } from '../theme/font/fonts.js';
 
-// If loading a variable font, you don't need to specify the font weight
 export const metadata: Metadata = {
-  title: 'Ryan Simpson',
+  title: 'Ryan Simpson | Software Engineer',
   description:
     'An experienced software engineer with a passion for building web applications.'
 };

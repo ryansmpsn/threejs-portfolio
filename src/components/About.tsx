@@ -13,6 +13,7 @@ const Details = styled.p`
   max-width: 18.75rem;
   text-align: center;
   margin-inline: auto;
+  margin-bottom: 2rem;
 `;
 
 const Stats = styled.div`
