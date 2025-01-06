@@ -19,7 +19,7 @@ const Address = styled(Link)`
 
 export const Footer = () => (
   <StyledFooter>
-    <Copyright>© Ryan Simpson {new Date().getFullYear()}</Copyright>
+    <Copyright>© {new Date().getFullYear()} Ryan Simpson</Copyright>
     <Address href="mailto:ryzizn@gmail.com" target="_blank">
       Ryzizn@gmail.com
     </Address>
