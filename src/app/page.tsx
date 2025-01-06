@@ -1,10 +1,13 @@
 'use client';
 
+import { Suspense } from 'react';
 import { ThemeProvider } from 'styled-components';
 
 import { About } from '@/components/About';
 import { Contact } from '@/components/Contact';
 import { Footer } from '@/components/Footer';
+import { Landing } from '@/components/Landing';
+import { MainCanvas } from '@/components/MainCanvas';
 import { NavBar } from '@/components/NavBar';
 import { Technology } from '@/components/Technology';
 import { Work } from '@/components/Work';
@@ -19,10 +22,13 @@ export default function Home() {
     <ThemeProvider theme={theme}>
       <>
         <GlobalStyles />
+        <Suspense fallback={<div>loading...</div>}>
+          <MainCanvas />
+        </Suspense>
         <main>
-          <NavBar />
           {/* <button onClick={toggleTheme}>toggle theme</button> */}
-          {/* <MainCanvas /> */}
+          <NavBar />
+          <Landing />
           <About />
           <Work />
           <Technology />
