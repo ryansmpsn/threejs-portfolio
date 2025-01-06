@@ -4,7 +4,7 @@ import { ThemeProvider } from 'styled-components';
 
 import { About } from '@/components/About';
 import { Contact } from '@/components/Contact';
-import { MainCanvas } from '@/components/MainCanvas';
+import { Footer } from '@/components/Footer';
 import { NavBar } from '@/components/NavBar';
 import { Technology } from '@/components/Technology';
 import { Work } from '@/components/Work';
@@ -22,11 +22,12 @@ export default function Home() {
         <main>
           <NavBar />
           {/* <button onClick={toggleTheme}>toggle theme</button> */}
-          <MainCanvas />
+          {/* <MainCanvas /> */}
           <About />
           <Work />
           <Technology />
           <Contact />
+          <Footer />
         </main>
       </>
     </ThemeProvider>
