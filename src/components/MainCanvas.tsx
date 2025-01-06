@@ -1,149 +1,136 @@
 'use client';
 
-import { Environment, useGLTF } from '@react-three/drei';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { EffectComposer, N8AO } from '@react-three/postprocessing';
-import {
-  BallCollider,
-  CylinderCollider,
-  Physics,
-  RigidBody
-} from '@react-three/rapier';
-import { useRef } from 'react';
+import { useFBO } from '@react-three/drei';
+import { Canvas, createPortal, extend, useFrame } from '@react-three/fiber';
+import { useMemo, useRef } from 'react';
 import styled from 'styled-components';
 import * as THREE from 'three';
 
+import SimulationMaterial from '../materials/SimulationMaterial';
+import fragmentShader from '../shaders/fragmentShader.glsl';
+import vertexShader from '../shaders/vertexShader.glsl';
+
+extend({ SimulationMaterial: SimulationMaterial });
+
 const CanvasContainer = styled.div`
+  position: fixed;
   height: 100vh;
   width: 100%;
+  opacity: 0.5;
 `;
 
-THREE.ColorManagement.legacyMode = false;
-const baubleMaterial = new THREE.MeshLambertMaterial({
-  color: '#c0a0a0',
-  emissive: 'red'
-});
-const capMaterial = new THREE.MeshStandardMaterial({
-  metalness: 0.75,
-  roughness: 0.15,
-  color: '#8a492f',
-  emissive: '#600000',
-  envMapIntensity: 20
-});
-const sphereGeometry = new THREE.SphereGeometry(1, 28, 28);
-const baubles = [...Array(50)].map(() => ({
-  scale: [0.75, 0.75, 1, 1, 1.25][Math.floor(Math.random() * 5)]
-}));
+const FBOParticles = () => {
+  const size = 128;
 
-function Bauble({
-  vec = new THREE.Vector3(),
-  scale,
-  r = THREE.MathUtils.randFloatSpread
-}) {
-  const { nodes } = useGLTF('./cap.glb');
-  const api = useRef();
-  useFrame((state, delta) => {
-    delta = Math.min(0.1, delta);
-    api.current?.applyImpulse(
-      vec
-        .copy(api.current.translation())
-        .normalize()
-        .multiply({
-          x: -50 * delta * scale,
-          y: -150 * delta * scale,
-          z: -50 * delta * scale
-        })
-    );
-  });
-  return (
-    <RigidBody
-      linearDamping={0.75}
-      angularDamping={0.15}
-      friction={0.2}
-      position={[r(20), r(20) - 25, r(20) - 10]}
-      ref={api}
-      colliders={false}
-      dispose={null}
-    >
-      <BallCollider args={[scale]} />
-      <CylinderCollider
-        rotation={[Math.PI / 2, 0, 0]}
-        position={[0, 0, 1.2 * scale]}
-        args={[0.15 * scale, 0.275 * scale]}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        scale={scale}
-        geometry={sphereGeometry}
-        material={baubleMaterial}
-      />
-      <mesh
-        castShadow
-        scale={2.5 * scale}
-        position={[0, 0, -1.8 * scale]}
-        geometry={nodes.Mesh_1.geometry}
-        material={capMaterial}
-      />
-    </RigidBody>
+  const points = useRef();
+  const simulationMaterialRef = useRef();
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.OrthographicCamera(
+    -1,
+    1,
+    1,
+    -1,
+    1 / Math.pow(2, 53),
+    1
   );
-}
+  const positions = new Float32Array([
+    -1, -1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, 1, 0, -1, 1, 0
+  ]);
+  const uvs = new Float32Array([0, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0]);
 
-function Pointer({ vec = new THREE.Vector3() }) {
-  const ref = useRef();
-  useFrame(({ mouse, viewport }) => {
-    vec.lerp(
-      {
-        x: (mouse.x * viewport.width) / 2,
-        y: (mouse.y * viewport.height) / 2,
-        z: 0
-      },
-      0.2
-    );
-    ref.current?.setNextKinematicTranslation(vec);
+  const renderTarget = useFBO(size, size, {
+    minFilter: THREE.NearestFilter,
+    magFilter: THREE.NearestFilter,
+    format: THREE.RGBAFormat,
+    stencilBuffer: false,
+    type: THREE.FloatType
   });
-  return (
-    <RigidBody
-      position={[100, 100, 100]}
-      type="kinematicPosition"
-      colliders={false}
-      ref={ref}
-    >
-      <BallCollider args={[2]} />
-    </RigidBody>
+
+  const particlesPosition = useMemo(() => {
+    const length = size * size;
+    const particles = new Float32Array(length * 3);
+    for (let i = 0; i < length; i++) {
+      const i3 = i * 3;
+      particles[i3 + 0] = (i % size) / size;
+      particles[i3 + 1] = i / size / size;
+    }
+    return particles;
+  }, [size]);
+
+  const uniforms = useMemo(
+    () => ({
+      uPositions: {
+        value: null
+      }
+    }),
+    []
   );
-}
 
-export const MainCanvas = () => (
-  <CanvasContainer id="landing">
-    <Canvas
-      shadows
-      gl={{ alpha: true, stencil: false, depth: false, antialias: false }}
-      camera={{ position: [0, 0, 20], fov: 32.5, near: 1, far: 100 }}
-      onCreated={(state) => (state.gl.toneMappingExposure = 1.5)}
-    >
-      <ambientLight intensity={1} />
-      <spotLight
-        position={[20, 20, 25]}
-        penumbra={1}
-        angle={0.2}
-        color="white"
-        castShadow
-        shadow-mapSize={[512, 512]}
-      />
-      <directionalLight position={[0, 5, -4]} intensity={4} />
-      <directionalLight position={[0, -15, -0]} intensity={4} color="red" />
+  useFrame((state) => {
+    const { gl, clock } = state;
 
-      <Physics gravity={[0, 0, 0]}>
-        <Pointer />
-        {
-          baubles.map((props, i) => <Bauble key={i} {...props} />) /* prettier-ignore */
-        }
-      </Physics>
-      <Environment files="/adamsbridge.hdr" />
-      <EffectComposer disableNormalPass>
-        <N8AO color="red" aoRadius={2} intensity={1.15} />
-      </EffectComposer>
-    </Canvas>
-  </CanvasContainer>
-);
+    gl.setRenderTarget(renderTarget);
+    gl.clear();
+    gl.render(scene, camera);
+    gl.setRenderTarget(null);
+
+    points.current.material.uniforms.uPositions.value = renderTarget.texture;
+
+    simulationMaterialRef.current.uniforms.uTime.value = clock.elapsedTime;
+  });
+
+  return (
+    <>
+      {createPortal(
+        <mesh>
+          <simulationMaterial ref={simulationMaterialRef} args={[size]} />
+          <bufferGeometry>
+            <bufferAttribute
+              attach="attributes-position"
+              count={positions.length / 3}
+              array={positions}
+              itemSize={3}
+            />
+            <bufferAttribute
+              attach="attributes-uv"
+              count={uvs.length / 2}
+              array={uvs}
+              itemSize={2}
+            />
+          </bufferGeometry>
+        </mesh>,
+        scene
+      )}
+      <points ref={points}>
+        <bufferGeometry>
+          <bufferAttribute
+            attach="attributes-position"
+            count={particlesPosition.length / 3}
+            array={particlesPosition}
+            itemSize={3}
+          />
+        </bufferGeometry>
+        <shaderMaterial
+          blending={THREE.AdditiveBlending}
+          depthWrite={false}
+          fragmentShader={fragmentShader}
+          vertexShader={vertexShader}
+          uniforms={uniforms}
+        />
+      </points>
+    </>
+  );
+};
+
+export const MainCanvas = () => {
+  return (
+    <CanvasContainer id="landing">
+      <Canvas camera={{ position: [0, 0.5, 1.1] }}>
+        <ambientLight intensity={0.5} />
+        <FBOParticles />
+        {/* <OrbitControls /> */}
+      </Canvas>
+    </CanvasContainer>
+  );
+};

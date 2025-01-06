@@ -26,6 +26,11 @@ module.exports = {
         issuer: fileLoaderRule.issuer,
         resourceQuery: { not: [...fileLoaderRule.resourceQuery.not, /url/] },
         use: ['@svgr/webpack']
+      },
+      // allows import of shader files
+      {
+        test: /\.(glsl|vs|fs|vert|frag)$/,
+        type: 'asset/source'
       }
     );
 
