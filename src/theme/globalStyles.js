@@ -6,7 +6,7 @@ import { coromont } from '../theme/font/fonts.js';
 export const GlobalStyles = createGlobalStyle`
   html {
     scroll-behavior: smooth;
-}
+  }
 
   html,body,main {
     margin: 0;

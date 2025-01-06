@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import styled from 'styled-components';
 
+import RSLogo from '../../public/rs-logo.svg';
+
 const MainNav = styled.nav`
   position: sticky;
   top: 0;
@@ -14,10 +16,17 @@ const MainNav = styled.nav`
   z-index: 1;
 `;
 
-const Logo = styled.a`
-  width: 20px;
-  height: 20px;
-  background-color: green;
+const HomeLink = styled(Link)`
+  svg {
+    width: 30px;
+    height: 30px;
+    filter: invert(100%);
+    transition: opacity 0.5s;
+
+    &:hover {
+      opacity: 0.5;
+    }
+  }
 `;
 
 const NavItems = styled.ul`
@@ -48,7 +57,9 @@ const ContactButton = styled(Link)`
 export const NavBar = () => (
   <MainNav>
     {/* TODO: scroll to top */}
-    <Logo href="#landing" />
+    <HomeLink href="#landing">
+      <RSLogo />
+    </HomeLink>
     <NavItems>
       <NavItem>
         <NavText href="#about">About Me</NavText>
