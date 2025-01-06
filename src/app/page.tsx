@@ -6,7 +6,7 @@ import { ThemeProvider } from 'styled-components';
 import { About } from '@/components/About';
 import { Contact } from '@/components/Contact';
 import { Footer } from '@/components/Footer';
-import { Landing } from '@/components/Landing';
+import Landing from '@/components/Landing';
 import { MainCanvas } from '@/components/MainCanvas';
 import { NavBar } from '@/components/NavBar';
 import { Technology } from '@/components/Technology';
