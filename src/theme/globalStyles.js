@@ -16,19 +16,31 @@ export const GlobalStyles = createGlobalStyle`
   }
   
   main {
-    padding: 0px 1rem;
+    padding: 0px 2rem;
     background: transparent;
     max-width: 98rem;
     margin-inline: auto;
     position: relative;
   }
 
-  h2,h4{
+  h1,h2,h4{
   font-family: ${coromont.style.fontFamily};
   }
 
   h2,h3 {
-    font-size: 4rem
+    font-size: 4rem;
+    
+    @media ${({ theme }) => theme.device.laptopL} {
+      font-size: 3rem;
+    }
+
+    @media ${({ theme }) => theme.device.tablet} {
+      font-size: 2rem;
+    }
+
+    @media ${({ theme }) => theme.device.mobileL} {
+      font-size: 1.5rem;
+    }
   }
 
   a {
@@ -43,6 +55,10 @@ export const FullPage = styled.div`
   align-items: center;
   scroll-margin-top: 4rem;
   margin-bottom: 12.5rem;
+
+  @media ${({ theme }) => theme.device.tablet} {
+    margin-bottom: 6rem;
+  }
 `;
 
 export const Content = styled.div`
@@ -56,13 +72,43 @@ export const PageNumber = styled.h4`
   position: absolute;
   margin: 0px;
   opacity: 0.2;
+
+  @media ${({ theme }) => theme.device.tablet} {
+    font-size: 1.5rem;
+  }
+
+  @media ${({ theme }) => theme.device.mobileL} {
+    font-size: 1.2rem;
+  }
 `;
 
 export const Title = styled.h2`
   font-weight: normal;
-  font-size: 4rem;
   margin: 0px;
-  margin-bottom: 6rem;
+  margin-bottom: 4rem;
   text-align: center;
   text-transform: uppercase;
+
+  @media ${({ theme }) => theme.device.tablet} {
+    margin-bottom: 2rem;
+  }
+`;
+
+export const Summary = styled.p`
+  font-size: 1.5rem;
+  margin-top: 0px;
+
+  @media ${({ theme }) => theme.device.laptopL} {
+    font-size: 1.25rem;
+  }
+
+  @media ${({ theme }) => theme.device.tablet} {
+    font-size: 1rem;
+  }
+
+  @media ${({ theme }) => theme.device.mobileL} {
+    margin-bottom: 2rem;
+    font-size: 0.875rem;
+    text-align: center;
+  }
 `;

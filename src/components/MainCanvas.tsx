@@ -125,7 +125,7 @@ const FBOParticles = () => {
 
 export const MainCanvas = () => {
   return (
-    <CanvasContainer id="landing">
+    <CanvasContainer>
       <Canvas camera={{ position: [0, 0.5, 1.1] }}>
         <ambientLight intensity={0.5} />
         <FBOParticles />

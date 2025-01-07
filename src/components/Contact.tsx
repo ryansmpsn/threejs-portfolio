@@ -18,10 +18,15 @@ import styled from 'styled-components';
 import { Content, FullPage, PageNumber, Title } from '@/theme/globalStyles';
 
 const ContactDetails = styled.div`
+  margin-top: 2rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   width: 100%;
   gap: 4rem;
+
+  @media ${({ theme }) => theme.device.mobileL} {
+    flex-direction: column;
+  }
 `;
 
 const ContactColumn = styled.div`

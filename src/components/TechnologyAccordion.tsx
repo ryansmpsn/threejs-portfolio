@@ -40,7 +40,7 @@ const TechnologyTitle = styled.p`
 `;
 
 const TechnologyDescription = styled.p`
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   text-align: center;
 `;
 
@@ -58,14 +58,13 @@ const StyledArrowIcon = styled(animated.svg)`
 interface TechnologyAccordionProps {
   technologyTitle: string;
   technologyDescription: string;
-  style?: React.CSSProperties;
+  className?: string;
 }
 
-export const TechnologyAccordion: React.FC<TechnologyAccordionProps> = ({
-  technologyTitle,
-  technologyDescription,
-  style
-}) => {
+export const TechnologyAccordion: React.FC<TechnologyAccordionProps> = (
+  props
+) => {
+  const { technologyTitle, technologyDescription } = props;
   const [open, setOpen] = useState(false);
   const [accordionHeight, setAccordionHeight] = useState(0);
 
@@ -93,7 +92,7 @@ export const TechnologyAccordion: React.FC<TechnologyAccordionProps> = ({
   });
 
   return (
-    <div style={style}>
+    <div {...props}>
       <Accordion style={openAnimation} onClick={() => setOpen(!open)}>
         <TechnologyTitle>
           {technologyTitle}

@@ -47,11 +47,13 @@ const ImageContainer = styled.div`
 `;
 
 const StyledImage = styled(Image)`
+  aspect-ratio: 1/1;
   width: 100%;
   height: auto;
   filter: grayscale(100%);
   transition: filter 0.5s ease;
   cursor: pointer;
+  object-fit: contain;
 
   &:hover {
     filter: none;
@@ -78,12 +80,14 @@ interface HighlightedProjectProps {
   size: number;
   projectTitle: string;
   projectDate: string;
+  src: string;
 }
 
 export const HighlightedProject: React.FC<HighlightedProjectProps> = ({
   size,
   projectTitle,
-  projectDate
+  projectDate,
+  src
 }) => {
   // TODO: paralax on scroll
   return (
@@ -100,7 +104,7 @@ export const HighlightedProject: React.FC<HighlightedProjectProps> = ({
       </PlusRow>
       <ImageContainer>
         <StyledImage
-          src={`https://picsum.photos/${size}`}
+          src={src}
           width={size}
           height={size}
           alt={`${projectTitle} thumbnail`}
@@ -127,5 +131,6 @@ export const HighlightedProject: React.FC<HighlightedProjectProps> = ({
 HighlightedProject.propTypes = {
   size: PropTypes.number.isRequired,
   projectTitle: PropTypes.string.isRequired,
-  projectDate: PropTypes.string.isRequired
+  projectDate: PropTypes.string.isRequired,
+  src: PropTypes.string.isRequired
 };

@@ -2,11 +2,13 @@
 
 import styled from 'styled-components';
 
-import { Content, FullPage, PageNumber, Title } from '@/theme/globalStyles';
-
-const Summary = styled.p`
-  font-size: 1.5rem;
-`;
+import {
+  Content,
+  FullPage,
+  PageNumber,
+  Summary,
+  Title
+} from '@/theme/globalStyles';
 
 const Details = styled.p`
   font-size: 1rem;
@@ -14,6 +16,10 @@ const Details = styled.p`
   text-align: center;
   margin-inline: auto;
   margin-bottom: 2rem;
+
+  @media ${({ theme }) => theme.device.mobileL} {
+    font-size: 10px;
+  }
 `;
 
 const Stats = styled.div`
@@ -33,11 +39,19 @@ const Stat = styled.div`
 `;
 
 const StatValue = styled.h3`
-  margin: 0;
+  margin: 0px;
+
+  @media ${({ theme }) => theme.device.mobileL} {
+    font-size: 16px;
+  }
 `;
 const StatTitle = styled.p`
-  margin: 0;
+  margin: 0px;
   color: ${({ theme }) => theme.muted};
+
+  @media ${({ theme }) => theme.device.mobileL} {
+    font-size: 10px;
+  }
 `;
 
 export const About = () => (
@@ -63,6 +77,7 @@ export const About = () => (
       <Stats>
         <StatRow>
           <Stat>
+            {/* TODO: count up numbers when in view */}
             <StatValue>1.75+</StatValue>
             <StatTitle>Cups of coffee / day</StatTitle>
           </Stat>

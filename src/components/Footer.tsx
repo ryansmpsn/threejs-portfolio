@@ -9,12 +9,20 @@ const StyledFooter = styled.div`
   align-items: center;
 `;
 const Copyright = styled.p`
-  font-size: 0.8rem;
+  font-size: 0.75rem;
+
+  @media ${({ theme }) => theme.device.mobileL} {
+    font-size: 9px;
+  }
 `;
 
 const Address = styled(Link)`
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   text-decoration: none;
+
+  @media ${({ theme }) => theme.device.mobileL} {
+    font-size: 9px;
+  }
 `;
 
 export const Footer = () => (

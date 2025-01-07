@@ -64,7 +64,7 @@ export const NavBar = () => (
         <NavText href="#about">About Me</NavText>
       </NavItem>
       <NavItem>
-        <NavText href="#work">Featured Work</NavText>
+        <NavText href="#projects">Projects</NavText>
       </NavItem>
       <NavItem>
         <NavText href="#technology">Technology</NavText>
