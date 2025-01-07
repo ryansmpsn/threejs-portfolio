@@ -60,19 +60,16 @@ export const About = () => (
       <PageNumber>/01</PageNumber>
       <Title>About Me</Title>
       <Summary>
-        Ryan, a software engineer with a passion for building web applications.
-        Has experience with a variety of technologies and languages, including
-        JavaScript, TypeScript, React, Node.js, and Python. Always looking to
-        learn new things and improve skills.
+        I am a software engineer with a passion for building web applications
+        based in Orlando Florida. With 7 years of experience, i've been able to
+        bring to life pixel perfect websites with stunning designs.
       </Summary>
       <Details>
         I am currently working as a full-stack developer at a startup in
-        Vancouver, BC. I am responsible for building and maintaining the
-        company's web application, which is used by thousands of users every
-        day. My role involves working closely with the design and product teams
-        to implement new features and improve the user experience. I also help
-        to maintain the backend services and ensure the application is scalable
-        and performant.
+        Chicago, IL. I am responsible for building and maintaining the company's
+        web applications, which are used by thousands of users every day. My
+        role involves working closely with the design and product teams to
+        implement new features and improve the user experience.
       </Details>
       <Stats>
         <StatRow>

@@ -104,42 +104,42 @@ export const Technology = () => (
       <Title>Technology</Title>
       <Summary>
         I am experienced with a variety of technologies and languages, below are
-        some of my favorite. I'm always looking to learn new things and improve
-        my skills.
+        some of the latest i've used on recent projects. I'm always looking to
+        learn new things and improve my skills.
       </Summary>
     </Content>
     <TechnologyGrid>
       <StyledTechnologyAccordion1
         technologyTitle="React"
-        technologyDescription="A JavaScript library for building user interfaces."
+        technologyDescription="A JavaScript library for building dynamic and interactive user interfaces, primarily for single-page applications."
       />
       <StyledTechnologyAccordion2
         technologyTitle="Next.js"
-        technologyDescription="A JavaScript framework for building server-side rendered React applications."
+        technologyDescription="A React-based framework for building fast, production-ready web applications with features like server-side rendering, static site generation, and API routes."
       />
       <StyledTechnologyAccordion3
         technologyTitle="Angular"
-        technologyDescription="A JavaScript framework for building user interfaces."
+        technologyDescription="A comprehensive TypeScript-based web application framework for building scalable and dynamic single-page applications with a strong focus on structure and maintainability."
       />
       <StyledTechnologyAccordion4
         technologyTitle="Three.js"
-        technologyDescription="A TypeScript-based open-source web application framework."
+        technologyDescription="A powerful JavaScript library for creating and rendering 3D graphics in the browser using WebGL."
       />
       <StyledTechnologyAccordion5
         technologyTitle="Konva.js"
-        technologyDescription="A JavaScript runtime built on Chrome's V8 JavaScript engine."
+        technologyDescription="A JavaScript library for creating 2D canvas-based graphics, providing high performance and interactivity for applications like image editing and complex visualizations."
       />
       <StyledTechnologyAccordion6
         technologyTitle="Go"
-        technologyDescription="An open-source programming language that makes it easy to build simple, reliable, and efficient software."
+        technologyDescription="An open-source programming language designed for simplicity, performance, and scalability, often used in systems programming and cloud-native applications."
       />
       <StyledTechnologyAccordion7
         technologyTitle="React Native"
-        technologyDescription="A high-level, interpreted programming language with dynamic semantics."
+        technologyDescription="A framework for building native mobile applications using React, allowing developers to write cross-platform apps with a single codebase."
       />
       <StyledTechnologyAccordion8
-        technologyTitle="Python"
-        technologyDescription="A dynamic, open-source programming language with a focus on simplicity and productivity."
+        technologyTitle="Node.js"
+        technologyDescription="A JavaScript runtime built on Chrome's V8 engine, enabling server-side execution of JavaScript for building scalable, high-performance network applications."
       />
     </TechnologyGrid>
   </FullPage>
