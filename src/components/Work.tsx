@@ -10,7 +10,10 @@ import { HighlightedProject } from './HighlightedProject';
 const Projects = styled.div`
   width: 100%;
   margin: 2rem 0px;
-  max-width: 90rem;
+
+  @media ${({ theme }) => theme.device.mobileL} {
+    margin: 0px;
+  }
 `;
 
 const ProjectRow = styled.div`
@@ -19,14 +22,14 @@ const ProjectRow = styled.div`
   justify-content: space-between;
   margin-bottom: 1rem;
   gap: 1rem;
-`;
 
-const HalfSizeProject = styled.div`
-  width: 25%;
-`;
+  @media ${({ theme }) => theme.device.laptop} {
+    flex-wrap: wrap;
+  }
 
-const FullSizeProject = styled.div`
-  width: 55%;
+  @media ${({ theme }) => theme.device.mobileL} {
+    flex-direction: column;
+  }
 `;
 
 const StackedHighlightedProjects = styled.div`
@@ -35,12 +38,56 @@ const StackedHighlightedProjects = styled.div`
   flex-direction: column;
   align-items: end;
   gap: 1rem;
+
+  @media ${({ theme }) => theme.device.laptop} {
+    display: contents;
+  }
 `;
 
 const CenteredHighlightedProject = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+
+  @media ${({ theme }) => theme.device.laptop} {
+    display: contents;
+  }
+`;
+
+const QuarterSizeProject = styled.div`
+  width: 35%;
+
+  @media ${({ theme }) => theme.device.laptop} {
+    flex: 1;
+  }
+
+  @media ${({ theme }) => theme.device.mobileL} {
+    width: 100%;
+  }
+`;
+
+const HalfSizeProject = styled.div`
+  width: 25%;
+
+  @media ${({ theme }) => theme.device.laptop} {
+    flex: 1;
+  }
+
+  @media ${({ theme }) => theme.device.mobileL} {
+    width: 100%;
+  }
+`;
+
+const FullSizeProject = styled.div`
+  width: 55%;
+
+  @media ${({ theme }) => theme.device.laptop} {
+    flex: 1;
+  }
+
+  @media ${({ theme }) => theme.device.mobileL} {
+    width: 100%;
+  }
 `;
 
 export const Work = () => {
@@ -77,10 +124,10 @@ export const Work = () => {
   }, []);
 
   return (
-    <FullPage id="work">
+    <FullPage id="projects">
       <Content>
         <PageNumber>/02</PageNumber>
-        <Title>Featured Projects</Title>
+        <Title>Projects</Title>
       </Content>
 
       <Projects>
@@ -88,16 +135,18 @@ export const Work = () => {
           <HalfSizeProject>
             <HighlightedProject
               size={200}
-              projectTitle="projectTitle"
-              projectDate="Mar 2024"
+              projectTitle="Superplastic"
+              projectDate="Sep 2023"
+              src={'/superplastic_logo.svg'}
             />
           </HalfSizeProject>
           <CenteredHighlightedProject>
             <FullSizeProject>
               <HighlightedProject
                 size={400}
-                projectTitle="projectTitle"
-                projectDate="Mar 2024"
+                projectTitle="Starface"
+                projectDate="Apr 2023"
+                src={'/big_yellow_render_v2.gif'}
               />
             </FullSizeProject>
           </CenteredHighlightedProject>
@@ -106,26 +155,29 @@ export const Work = () => {
           <FullSizeProject>
             <HighlightedProject
               size={400}
-              projectTitle="projectTitle"
+              projectTitle="Plume"
               projectDate="Mar 2024"
+              src={'/plume_logo.svg'}
             />
           </FullSizeProject>
           <StackedHighlightedProjects>
-            <HalfSizeProject>
+            <QuarterSizeProject>
               <HighlightedProject
                 size={200}
-                projectTitle="projectTitle"
-                projectDate="Mar 2024"
+                projectTitle="Graveflex"
+                projectDate="Nov 2022"
+                src={'/graveflex_logo.svg'}
               />
-            </HalfSizeProject>
+            </QuarterSizeProject>
             <CenteredHighlightedProject>
-              <HalfSizeProject>
+              <QuarterSizeProject>
                 <HighlightedProject
                   size={200}
-                  projectTitle="projectTitle"
-                  projectDate="Mar 2024"
+                  projectTitle="Vilano"
+                  projectDate="Apr 2021"
+                  src={'/vilano_logo.png'}
                 />
-              </HalfSizeProject>
+              </QuarterSizeProject>
             </CenteredHighlightedProject>
           </StackedHighlightedProjects>
         </ProjectRow>
