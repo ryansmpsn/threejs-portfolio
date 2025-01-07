@@ -3,85 +3,136 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
-import { FullPage } from '@/theme/globalStyles';
+const Container = styled.div`
+  min-height: 65vh;
+  max-width: 50rem;
+  margin-inline: auto;
+  display: flex;
+  padding-top: 10rem;
+  justify-content: center;
+`;
 
-const Title = styled.h1``;
+const Title = styled.h1`
+  font-size: 5rem;
+  text-align: center;
+  font-weight: 400;
+  text-transform: uppercase;
 
-class TextScramble {
-  constructor(el) {
-    this.el = el;
-    this.chars = '!<>-_\\/[]{}—=+*^?#________';
-    this.update = this.update.bind(this);
+  @media ${({ theme }) => theme.device.laptopL} {
+    font-size: 4rem;
   }
-  setText(newText) {
-    const oldText = this.el.innerText;
-    const length = Math.max(oldText.length, newText.length);
-    const promise = new Promise((resolve) => (this.resolve = resolve));
-    this.queue = [];
-    for (let i = 0; i < length; i++) {
-      const from = oldText[i] || '';
-      const to = newText[i] || '';
-      const start = Math.floor(Math.random() * 40);
-      const end = start + Math.floor(Math.random() * 40);
-      this.queue.push({ from, to, start, end });
-    }
-    cancelAnimationFrame(this.frameRequest);
-    this.frame = 0;
-    this.update();
-    return promise;
+
+  @media ${({ theme }) => theme.device.tablet} {
+    font-size: 3.5rem;
   }
-  update() {
+  @media ${({ theme }) => theme.device.tablet} {
+    font-size: 3.5rem;
+  }
+  @media ${({ theme }) => theme.device.mobileL} {
+    font-size: 2.5rem;
+  }
+`;
+
+// Function-based implementation of TextScramble
+const useTextScramble = (el) => {
+  const chars = '!<>-_\\/[]{}—=+*^?#________';
+  const frameRef = useRef(null); // Correctly defined here
+  const resolveRef = useRef(null);
+  const queueRef = useRef([]);
+
+  const randomChar = () => chars[Math.floor(Math.random() * chars.length)];
+
+  const update = () => {
+    const queue = queueRef.current;
+    if (!el.current || queue.length === 0) return;
+
     let output = '';
     let complete = 0;
-    for (let i = 0, n = this.queue.length; i < n; i++) {
-      let { from, to, start, end, char } = this.queue[i];
-      if (this.frame >= end) {
+
+    queue.forEach((item, i) => {
+      const { from, to, start, end } = item;
+      let { char } = item;
+
+      if (frameRef.current >= end) {
         complete++;
         output += to;
-      } else if (this.frame >= start) {
-        if (!char || Math.random() < 0.28) {
-          char = this.randomChar();
-          this.queue[i].char = char;
+      } else if (frameRef.current >= start) {
+        if (!char || Math.random() < 0.08) {
+          char = randomChar();
+          queue[i].char = char;
         }
         output += `<span class="dud">${char}</span>`;
       } else {
         output += from;
       }
-    }
-    this.el.innerHTML = output;
-    if (complete === this.queue.length) {
-      this.resolve();
+    });
+
+    el.current.innerHTML = output;
+
+    if (complete === queue.length) {
+      resolveRef.current?.();
     } else {
-      this.frameRequest = requestAnimationFrame(this.update);
-      this.frame++;
+      frameRef.current++;
+      requestAnimationFrame(update);
     }
-  }
-  randomChar() {
-    return this.chars[Math.floor(Math.random() * this.chars.length)];
-  }
-}
+  };
+
+  const setText = (newText) => {
+    if (!el.current) return Promise.resolve();
+
+    const oldText = el.current.innerText || '';
+    const length = Math.max(oldText.length, newText.length);
+
+    queueRef.current = [];
+    for (let i = 0; i < length; i++) {
+      const from = oldText[i] || '';
+      const to = newText[i] || '';
+      const start = Math.floor(Math.random() * 200);
+      const end = start + Math.floor(Math.random() * 200);
+      queueRef.current.push({ from, to, start, end });
+    }
+
+    frameRef.current = 0;
+
+    return new Promise((resolve) => {
+      resolveRef.current = resolve;
+      requestAnimationFrame(update);
+    });
+  };
+
+  return { setText, frameRef };
+};
 
 const Landing = () => {
   const phrases = [
     'Ryan Simpson',
     'Software Engineer',
-    'Programs daily',
-    'some long witty text sentence here',
-    'I',
-    'Have ',
-    'two or three',
-    'Cats'
+    'Believe in yourself.',
+    'Stay positive.',
+    'Ryan Simpson',
+    'Software Engineer',
+    'Success is not final.',
+    'failure is not fatal.',
+    'It is the courage to continue that counts.',
+    'Ryan Simpson',
+    'Software Engineer',
+    'The only limit to our realization of tomorrow,',
+    'is our doubts of today.',
+    'Ryan Simpson',
+    'Software Engineer',
+    'The future belongs to those who believe in the beauty of their dreams.',
+    'Don’t watch the clock; do what it does. Keep going.'
   ];
   const textRef = useRef(null);
   const phraseIndexRef = useRef(0);
 
+  const { setText, frameRef } = useTextScramble(textRef);
+
   useEffect(() => {
     if (!textRef.current) return;
 
-    const fx = new TextScramble(textRef.current);
-
     const nextPhrase = () => {
-      fx.setText(phrases[phraseIndexRef.current]).then(() => {
+      setText(phrases[phraseIndexRef.current]).then(() => {
         setTimeout(() => {
           phraseIndexRef.current =
             (phraseIndexRef.current + 1) % phrases.length;
@@ -92,18 +143,20 @@ const Landing = () => {
 
     nextPhrase();
 
-    // Cleanup any running animation frame when the component unmounts
     return () => {
-      cancelAnimationFrame(fx.frameRequest);
+      // Cleanup the animation frame on unmount
+      if (frameRef.current) {
+        cancelAnimationFrame(frameRef.current);
+      }
     };
-  }, []); // Empty dependency array ensures it runs only once
+  }, [phrases, setText]);
 
   return (
-    <FullPage id="landing">
+    <Container id="landing">
       <Title>
         <div ref={textRef} className="text" />
       </Title>
-    </FullPage>
+    </Container>
   );
 };
 
