@@ -49,7 +49,8 @@ const StyledLink = styled(Link)`
   text-decoration: none;
   transition: opacity 0.5s;
 
-  &:hover {
+  &:hover,
+  &:focus {
     opacity: 0.5;
   }
 `;

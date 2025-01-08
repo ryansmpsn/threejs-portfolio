@@ -41,7 +41,8 @@ const ImageContainer = styled.div`
   transition: filter 0.5s ease;
   cursor: pointer;
 
-  &:hover {
+  &:hover,
+  &:focus {
     filter: none;
   }
 `;
@@ -55,7 +56,8 @@ const StyledImage = styled(Image)`
   cursor: pointer;
   object-fit: contain;
 
-  &:hover {
+  &:hover,
+  &:focus {
     filter: none;
   }
 `;

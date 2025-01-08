@@ -28,7 +28,8 @@ const Accordion = styled(animated.div)`
     linear-gradient(#000 0 0) content-box;
   transition: outline-offset 0.2s;
 
-  &:hover {
+  &:hover,
+  &:focus {
     outline-offset: calc(var(--gap) / -3);
   }
 `;

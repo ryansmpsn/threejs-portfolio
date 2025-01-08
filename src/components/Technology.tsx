@@ -97,6 +97,8 @@ const StyledTechnologyAccordion8 = styled(TechnologyAccordion)`
   }
 `;
 
+/* TODO: Open and close random accordions in an interval, stop flow when user interacts with accordions */
+
 export const Technology = () => (
   <FullPage id="technology">
     <Content>
