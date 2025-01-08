@@ -34,11 +34,19 @@ const Title = styled.h1`
 `;
 
 // Function-based implementation of TextScramble
-const useTextScramble = (el) => {
+const useTextScramble = (el: React.MutableRefObject<HTMLElement | null>) => {
   const chars = '!<>-_\\/[]{}—=+*^?#________';
-  const frameRef = useRef(null); // Correctly defined here
-  const resolveRef = useRef(null);
-  const queueRef = useRef([]);
+  const frameRef = useRef<number | null>(0); // Correctly defined here
+  const resolveRef = useRef<((value?: unknown) => void) | null>(null);
+  type QueueItem = {
+    from: string;
+    to: string;
+    start: number;
+    end: number;
+    char?: string;
+  };
+
+  const queueRef = useRef<QueueItem[]>([]);
 
   const randomChar = () => chars[Math.floor(Math.random() * chars.length)];
 
@@ -52,6 +60,10 @@ const useTextScramble = (el) => {
     queue.forEach((item, i) => {
       const { from, to, start, end } = item;
       let { char } = item;
+
+      if (!frameRef.current) {
+        return;
+      }
 
       if (frameRef.current >= end) {
         complete++;
@@ -72,12 +84,14 @@ const useTextScramble = (el) => {
     if (complete === queue.length) {
       resolveRef.current?.();
     } else {
-      frameRef.current++;
+      if (frameRef.current !== null) {
+        frameRef.current++;
+      }
       requestAnimationFrame(update);
     }
   };
 
-  const setText = (newText) => {
+  const setText = (newText: string) => {
     if (!el.current) return Promise.resolve();
 
     const oldText = el.current.innerText || '';

@@ -13,6 +13,18 @@ import vertexShader from '../shaders/vertexShader.glsl';
 
 extend({ SimulationMaterial: SimulationMaterial });
 
+declare module 'react' {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
+  namespace JSX {
+    interface IntrinsicElements {
+      simulationMaterial: React.DetailedHTMLProps<
+        React.HTMLAttributes<THREE.ShaderMaterial>,
+        THREE.ShaderMaterial
+      > & { args: [number] };
+    }
+  }
+}
+
 const CanvasContainer = styled.div`
   position: fixed;
   height: 100vh;
@@ -23,8 +35,8 @@ const CanvasContainer = styled.div`
 const FBOParticles = () => {
   const size = 128;
 
-  const points = useRef();
-  const simulationMaterialRef = useRef();
+  const points = useRef<THREE.Points>(null);
+  const simulationMaterialRef = useRef<THREE.ShaderMaterial>(null);
 
   const scene = new THREE.Scene();
   const camera = new THREE.OrthographicCamera(
@@ -76,9 +88,15 @@ const FBOParticles = () => {
     gl.render(scene, camera);
     gl.setRenderTarget(null);
 
-    points.current.material.uniforms.uPositions.value = renderTarget.texture;
+    if (points.current) {
+      (
+        points.current.material as THREE.ShaderMaterial
+      ).uniforms.uPositions.value = renderTarget.texture;
+    }
 
-    simulationMaterialRef.current.uniforms.uTime.value = clock.elapsedTime;
+    if (simulationMaterialRef.current) {
+      simulationMaterialRef.current.uniforms.uTime.value = clock.elapsedTime;
+    }
   });
 
   return (
