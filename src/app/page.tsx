@@ -16,7 +16,8 @@ import { useTheme } from '@/hooks/useTheme';
 import { GlobalStyles } from '../theme/globalStyles';
 
 export default function Home() {
-  const { theme, toggleTheme } = useTheme();
+  // const { theme, toggleTheme } = useTheme();
+  const { theme } = useTheme();
 
   return (
     <ThemeProvider theme={theme}>
