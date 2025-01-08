@@ -137,6 +137,7 @@ export const Work = () => {
               projectTitle="Superplastic"
               projectDate="Sep 2023"
               src={'/superplastic_logo.svg'}
+              url="https://www.superplastic.co"
             />
           </HalfSizeProject>
           <CenteredHighlightedProject>
@@ -146,6 +147,7 @@ export const Work = () => {
                 projectTitle="Starface"
                 projectDate="Apr 2023"
                 src={'/big_yellow_render_v2.gif'}
+                url="https://www.starface.world"
               />
             </FullSizeProject>
           </CenteredHighlightedProject>
@@ -157,6 +159,7 @@ export const Work = () => {
               projectTitle="Plume"
               projectDate="Mar 2024"
               src={'/plume_logo.svg'}
+              url="https://www.plume.com"
             />
           </FullSizeProject>
           <StackedHighlightedProjects>
@@ -166,6 +169,7 @@ export const Work = () => {
                 projectTitle="Graveflex"
                 projectDate="Nov 2022"
                 src={'/graveflex_logo.svg'}
+                url="https://www.graveflex.com"
               />
             </QuarterSizeProject>
             <CenteredHighlightedProject>
@@ -175,6 +179,7 @@ export const Work = () => {
                   projectTitle="Vilano"
                   projectDate="Apr 2021"
                   src={'/vilano_logo.png'}
+                  url="https://github.com/ryansmpsn/Vilano-WebApp"
                 />
               </QuarterSizeProject>
             </CenteredHighlightedProject>

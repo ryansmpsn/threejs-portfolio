@@ -35,7 +35,7 @@ const PlusVertical = styled.div`
   left: 5.5px;
 `;
 
-const ImageContainer = styled.div`
+const ImageContainer = styled.a`
   margin: -1px 10px;
   filter: grayscale(100%);
   transition: filter 0.5s ease;
@@ -51,15 +51,9 @@ const StyledImage = styled(Image)`
   aspect-ratio: 1/1;
   width: 100%;
   height: auto;
-  filter: grayscale(100%);
   transition: filter 0.5s ease;
   cursor: pointer;
   object-fit: contain;
-
-  &:hover,
-  &:focus {
-    filter: none;
-  }
 `;
 
 const ProjectDescription = styled.div`
@@ -83,13 +77,15 @@ interface HighlightedProjectProps {
   projectTitle: string;
   projectDate: string;
   src: string;
+  url: string;
 }
 
 export const HighlightedProject: React.FC<HighlightedProjectProps> = ({
   size,
   projectTitle,
   projectDate,
-  src
+  src,
+  url
 }) => {
   // TODO: paralax on scroll
   return (
@@ -104,7 +100,7 @@ export const HighlightedProject: React.FC<HighlightedProjectProps> = ({
           <PlusVertical />
         </Plus>
       </PlusRow>
-      <ImageContainer>
+      <ImageContainer href={url} target="_blank">
         <StyledImage
           src={src}
           width={size}
@@ -134,5 +130,6 @@ HighlightedProject.propTypes = {
   size: PropTypes.number.isRequired,
   projectTitle: PropTypes.string.isRequired,
   projectDate: PropTypes.string.isRequired,
-  src: PropTypes.string.isRequired
+  src: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired
 };
