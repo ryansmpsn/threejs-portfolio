@@ -29,7 +29,7 @@ const CanvasContainer = styled.div`
   position: fixed;
   height: 100vh;
   width: 100%;
-  opacity: 0.5;
+  opacity: 0.6;
 `;
 
 const FBOParticles = () => {
