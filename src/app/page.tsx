@@ -12,6 +12,7 @@ import { NavBar } from '@/components/NavBar';
 import { Technology } from '@/components/Technology';
 import { Work } from '@/components/Work';
 import { useTheme } from '@/hooks/useTheme';
+import StyledComponentsRegistry from '@/lib/registry';
 
 import { GlobalStyles } from '../theme/globalStyles';
 
@@ -20,23 +21,25 @@ export default function Home() {
   const { theme } = useTheme();
 
   return (
-    <ThemeProvider theme={theme}>
-      <>
-        <GlobalStyles />
-        <Suspense fallback={<div>loading...</div>}>
-          <MainCanvas />
-        </Suspense>
-        <main>
-          {/* <button onClick={toggleTheme}>toggle theme</button> */}
-          <NavBar />
-          <Landing />
-          <About />
-          <Work />
-          <Technology />
-          <Contact />
-          <Footer />
-        </main>
-      </>
-    </ThemeProvider>
+    <StyledComponentsRegistry>
+      <ThemeProvider theme={theme}>
+        <>
+          <GlobalStyles />
+          <Suspense fallback={<div>loading...</div>}>
+            <MainCanvas />
+          </Suspense>
+          <main>
+            {/* <button onClick={toggleTheme}>toggle theme</button> */}
+            <NavBar />
+            <Landing />
+            <About />
+            <Work />
+            <Technology />
+            <Contact />
+            <Footer />
+          </main>
+        </>
+      </ThemeProvider>
+    </StyledComponentsRegistry>
   );
 }
