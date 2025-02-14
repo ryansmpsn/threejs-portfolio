@@ -14,7 +14,7 @@ module.exports = {
     quotes: [2, 'single'],
     'prettier/prettier': [
       'error',
-      { singleQuote: true, trailingComma: 'none' }
+      { singleQuote: true, trailingComma: 'none', endOfLine: 'auto' }
     ],
     'comma-dangle': ['error', 'never'],
     'react/no-unescaped-entities': 0,
