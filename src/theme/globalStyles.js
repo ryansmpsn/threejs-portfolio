@@ -1,7 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 import styled from 'styled-components';
 
-import { coromont } from '../theme/font/fonts.js';
+import { centuryGothic, coromont } from '../theme/font/fonts.js';
 
 export const GlobalStyles = createGlobalStyle`
   html {
@@ -12,7 +12,7 @@ export const GlobalStyles = createGlobalStyle`
   html,body,main {
     margin: 0;
     color: ${({ theme }) => theme.text};
-    font-family: var(--font-centuryGothic);
+    font-family: ${centuryGothic.style.fontFamily};
   }
   
   main {
@@ -46,6 +46,26 @@ export const GlobalStyles = createGlobalStyle`
   a {
     color: inherit;
     transition: color 0.3s ease;
+  }
+
+  :focus-visible {
+    outline: 2px solid ${({ theme }) => theme.text};
+    outline-offset: 2px;
+  }
+
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    z-index: 20;
+    background: ${({ theme }) => theme.background};
+    color: ${({ theme }) => theme.text};
+    padding: 0.5rem 1rem;
+  }
+
+  .skip-link:focus-visible {
+    left: 0.5rem;
+    top: 0.5rem;
   }
 `;
 

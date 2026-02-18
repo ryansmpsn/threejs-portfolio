@@ -148,6 +148,7 @@ export const Work = () => {
                 projectDate="Apr 2023"
                 src={'/big_yellow_render_v2.gif'}
                 url="https://www.starface.world"
+                priority
               />
             </FullSizeProject>
           </CenteredHighlightedProject>

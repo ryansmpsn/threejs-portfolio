@@ -185,9 +185,9 @@ export const NavBar = () => {
 
   return (
     <>
-      <MainNav>
+      <MainNav aria-label="Primary navigation">
         {/* TODO: scroll to top */}
-        <HomeLink href="#landing">
+        <HomeLink href="#landing" aria-label="Back to top">
           <RSLogo />
         </HomeLink>
 
@@ -204,7 +204,13 @@ export const NavBar = () => {
         </NavItems>
 
         <ContactButton href="#contact">Contact</ContactButton>
-        <HamburgerButton $open={navOpen} onClick={() => setNavOpen(!navOpen)}>
+        <HamburgerButton
+          $open={navOpen}
+          aria-label="Open mobile menu"
+          aria-expanded={navOpen}
+          aria-controls="mobile-navigation"
+          onClick={() => setNavOpen(!navOpen)}
+        >
           <span></span>
           <span></span>
           <span></span>
@@ -212,7 +218,7 @@ export const NavBar = () => {
         </HamburgerButton>
       </MainNav>
 
-      <MobileNav $open={navOpen}>
+      <MobileNav $open={navOpen} id="mobile-navigation">
         <MobileNavItems>
           <MobileNavItem>
             <NavText href="#about" onClick={() => setNavOpen(!navOpen)}>

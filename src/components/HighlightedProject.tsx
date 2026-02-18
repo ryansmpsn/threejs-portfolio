@@ -78,6 +78,7 @@ interface HighlightedProjectProps {
   projectDate: string;
   src: string;
   url: string;
+  priority?: boolean;
 }
 
 export const HighlightedProject: React.FC<HighlightedProjectProps> = ({
@@ -85,7 +86,8 @@ export const HighlightedProject: React.FC<HighlightedProjectProps> = ({
   projectTitle,
   projectDate,
   src,
-  url
+  url,
+  priority = false
 }) => {
   // TODO: paralax on scroll
   return (
@@ -100,12 +102,14 @@ export const HighlightedProject: React.FC<HighlightedProjectProps> = ({
           <PlusVertical />
         </Plus>
       </PlusRow>
-      <ImageContainer href={url} target="_blank">
+      <ImageContainer href={url} target="_blank" rel="noopener noreferrer">
         <StyledImage
           src={src}
           width={size}
           height={size}
           alt={`${projectTitle} thumbnail`}
+          priority={priority}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
         />
       </ImageContainer>
       <ProjectDescription>
@@ -131,5 +135,6 @@ HighlightedProject.propTypes = {
   projectTitle: PropTypes.string.isRequired,
   projectDate: PropTypes.string.isRequired,
   src: PropTypes.string.isRequired,
-  url: PropTypes.string.isRequired
+  url: PropTypes.string.isRequired,
+  priority: PropTypes.bool
 };

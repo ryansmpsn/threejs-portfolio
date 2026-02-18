@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
@@ -32,6 +33,29 @@ const Title = styled.h1`
     font-size: 2.5rem;
   }
 `;
+
+const CtaRow = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+`;
+
+const CtaButton = styled(Link)`
+  border: 1px solid ${({ theme }) => theme.text};
+  padding: 0.5rem 0.75rem;
+  text-decoration: none;
+  font-size: 0.875rem;
+`;
+
+const phrases = [
+  'Ryan Simpson',
+  'Application Engineer',
+  'Shipped product features used by thousands of users.',
+  'Modern frontend systems, measurable outcomes.',
+  'Ryan Simpson',
+  'Application Engineer'
+];
 
 // Function-based implementation of TextScramble
 const useTextScramble = (el: React.MutableRefObject<HTMLElement | null>) => {
@@ -118,25 +142,6 @@ const useTextScramble = (el: React.MutableRefObject<HTMLElement | null>) => {
 };
 
 const Landing = () => {
-  const phrases = [
-    'Ryan Simpson',
-    'Software Engineer',
-    'Believe in yourself.',
-    'Stay positive.',
-    'Ryan Simpson',
-    'Software Engineer',
-    'Success is not final.',
-    'failure is not fatal.',
-    'It is the courage to continue that counts.',
-    'Ryan Simpson',
-    'Software Engineer',
-    'The only limit to our realization of tomorrow,',
-    'is our doubts of today.',
-    'Ryan Simpson',
-    'Software Engineer',
-    'The future belongs to those who believe in the beauty of their dreams.',
-    'Don’t watch the clock; do what it does. Keep going.'
-  ];
   const textRef = useRef(null);
   const phraseIndexRef = useRef(0);
 
@@ -144,10 +149,11 @@ const Landing = () => {
 
   useEffect(() => {
     if (!textRef.current) return;
+    let timeoutId: ReturnType<typeof setTimeout>;
 
     const nextPhrase = () => {
       setText(phrases[phraseIndexRef.current]).then(() => {
-        setTimeout(() => {
+        timeoutId = setTimeout(() => {
           phraseIndexRef.current =
             (phraseIndexRef.current + 1) % phrases.length;
           nextPhrase();
@@ -158,18 +164,28 @@ const Landing = () => {
     nextPhrase();
 
     return () => {
-      // Cleanup the animation frame on unmount
-      if (frameRef.current) {
-        cancelAnimationFrame(frameRef.current);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      const frame = frameRef.current;
+      if (frame !== null) {
+        cancelAnimationFrame(frame);
       }
+      clearTimeout(timeoutId);
     };
-  }, [phrases, setText]);
+  }, [setText, frameRef]);
 
   return (
     <Container id="landing">
       <Title>
-        <div ref={textRef} className="text" />
+        <div ref={textRef} className="text" aria-live="polite" />
       </Title>
+      <CtaRow>
+        <CtaButton href="mailto:ryzizn@gmail.com">Email</CtaButton>
+        <CtaButton href="https://www.linkedin.com/in/ryan-developer/">
+          LinkedIn
+        </CtaButton>
+        <CtaButton href="https://github.com/ryansmpsn">GitHub</CtaButton>
+        <CtaButton href="/Ryan-Simpson-Resume.pdf">Resume PDF</CtaButton>
+      </CtaRow>
     </Container>
   );
 };
