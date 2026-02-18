@@ -1,7 +1,7 @@
 module.exports = {
   plugins: ['@typescript-eslint', 'unused-imports', 'simple-import-sort'],
   extends: [
-    'turbo',
+    'next/core-web-vitals',
     'prettier',
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
@@ -41,5 +41,10 @@ module.exports = {
   env: {
     browser: true,
     es2021: true
+  },
+  settings: {
+    react: {
+      version: 'detect'
+    }
   }
 };

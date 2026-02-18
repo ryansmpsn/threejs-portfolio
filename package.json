@@ -6,7 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check",
+    "prepare": "husky"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
@@ -38,8 +43,18 @@
     "eslint-plugin-react": "^7.34.1",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "eslint-plugin-unused-imports": "^4.1.4",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.10",
     "prettier": "latest",
     "typescript": "^5.4.4"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix"
+    ],
+    "*.{js,jsx,ts,tsx,json,md,css}": [
+      "prettier --write"
+    ]
   },
   "browserslist": [
     ">0.2%",

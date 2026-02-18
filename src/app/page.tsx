@@ -1,45 +1,51 @@
-'use client';
+import type { Metadata } from 'next';
 
-import { Suspense } from 'react';
-import { ThemeProvider } from 'styled-components';
+import HomePageClient from '@/components/HomePageClient';
+import { SITE_NAME, SITE_URL } from '@/lib/site';
 
-import { About } from '@/components/About';
-import { Contact } from '@/components/Contact';
-import { Footer } from '@/components/Footer';
-import Landing from '@/components/Landing';
-import { MainCanvas } from '@/components/MainCanvas';
-import { NavBar } from '@/components/NavBar';
-import { Technology } from '@/components/Technology';
-import { Work } from '@/components/Work';
-import { useTheme } from '@/hooks/useTheme';
-import StyledComponentsRegistry from '@/lib/registry';
+export const metadata: Metadata = {
+  title: 'Application Engineer Portfolio',
+  description:
+    'Ryan Simpson is an Application Engineer focused on modern web applications, performance, and user-centric product delivery.',
+  alternates: {
+    canonical: '/'
+  }
+};
 
-import { GlobalStyles } from '../theme/globalStyles';
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Person',
+      name: 'Ryan Simpson',
+      jobTitle: 'Application Engineer',
+      url: SITE_URL,
+      sameAs: [
+        'https://github.com/ryansmpsn',
+        'https://www.linkedin.com/in/ryan-developer/'
+      ]
+    },
+    {
+      '@type': 'WebSite',
+      name: SITE_NAME,
+      url: SITE_URL
+    },
+    {
+      '@type': 'SoftwareSourceCode',
+      name: 'Vilano',
+      codeRepository: 'https://github.com/ryansmpsn/Vilano-WebApp'
+    }
+  ]
+};
 
 export default function Home() {
-  // const { theme, toggleTheme } = useTheme();
-  const { theme } = useTheme();
-
   return (
-    <StyledComponentsRegistry>
-      <ThemeProvider theme={theme}>
-        <>
-          <GlobalStyles />
-          <Suspense fallback={<div>loading...</div>}>
-            <MainCanvas />
-          </Suspense>
-          <main>
-            {/* <button onClick={toggleTheme}>toggle theme</button> */}
-            <NavBar />
-            <Landing />
-            <About />
-            <Work />
-            <Technology />
-            <Contact />
-            <Footer />
-          </main>
-        </>
-      </ThemeProvider>
-    </StyledComponentsRegistry>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      <HomePageClient />
+    </>
   );
 }

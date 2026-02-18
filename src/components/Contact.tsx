@@ -45,7 +45,7 @@ const ContactDetail = styled.div`
   gap: 1rem;
 `;
 
-const StyledLink = styled(Link)`
+const StyledLink = styled(Link).attrs({ rel: 'noopener noreferrer' })`
   text-decoration: none;
   transition: opacity 0.5s;
 
