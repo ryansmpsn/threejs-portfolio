@@ -1,7 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 import styled from 'styled-components';
 
-import { centuryGothic, coromont } from '../theme/font/fonts.js';
+import { centuryGothic, centuryGothicBold } from '../theme/font/fonts.js';
 
 export const GlobalStyles = createGlobalStyle`
   html {
@@ -24,7 +24,7 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   h1,h2,h4{
-  font-family: ${coromont.style.fontFamily};
+  font-family: ${centuryGothicBold.style.fontFamily};
   }
 
   h2,h3 {

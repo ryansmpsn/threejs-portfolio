@@ -1,9 +1,11 @@
 import type { Metadata } from 'next';
 
+import { SITE_NAME, SITE_URL } from '@/lib/site';
+
 import { centuryGothic } from '../theme/font/fonts.js';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://ryansimpson.dev'),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: 'Ryan Simpson | Application Engineer',
     template: '%s | Ryan Simpson'
@@ -17,8 +19,8 @@ export const metadata: Metadata = {
     title: 'Ryan Simpson | Application Engineer',
     description:
       'Application Engineer focused on performant web apps, product delivery, and modern frontend systems.',
-    url: 'https://ryansimpson.dev',
-    siteName: 'Ryan Simpson Portfolio',
+    url: SITE_URL,
+    siteName: SITE_NAME,
     type: 'website'
   },
   twitter: {

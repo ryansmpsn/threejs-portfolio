@@ -17,7 +17,28 @@ import { GlobalStyles } from '../theme/globalStyles';
 
 const MainCanvas = dynamic(
   () => import('@/components/MainCanvas').then((mod) => mod.MainCanvas),
-  { ssr: false, loading: () => null }
+  {
+    ssr: false,
+    loading: () => (
+      <div
+        role="status"
+        aria-live="polite"
+        style={{
+          position: 'absolute',
+          width: 1,
+          height: 1,
+          margin: -1,
+          overflow: 'hidden',
+          clip: 'rect(0 0 0 0)',
+          whiteSpace: 'nowrap',
+          border: 0,
+          padding: 0
+        }}
+      >
+        Loading visual background…
+      </div>
+    )
+  }
 );
 
 export default function HomePageClient() {

@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -47,15 +47,6 @@ const CtaButton = styled(Link)`
   text-decoration: none;
   font-size: 0.875rem;
 `;
-
-const phrases = [
-  'Ryan Simpson',
-  'Application Engineer',
-  'Shipped product features used by thousands of users.',
-  'Modern frontend systems, measurable outcomes.',
-  'Ryan Simpson',
-  'Application Engineer'
-];
 
 // Function-based implementation of TextScramble
 const useTextScramble = (el: React.MutableRefObject<HTMLElement | null>) => {
@@ -142,6 +133,17 @@ const useTextScramble = (el: React.MutableRefObject<HTMLElement | null>) => {
 };
 
 const Landing = () => {
+  const phrases = useMemo(
+    () => [
+      'Ryan Simpson',
+      'Application Engineer',
+      'Shipped product features used by thousands of users.',
+      'Modern frontend systems, measurable outcomes.',
+      'Ryan Simpson',
+      'Application Engineer'
+    ],
+    []
+  );
   const textRef = useRef(null);
   const phraseIndexRef = useRef(0);
 
@@ -164,6 +166,7 @@ const Landing = () => {
     nextPhrase();
 
     return () => {
+      // frameRef is mutable by requestAnimationFrame, so we snapshot the latest id for safe cleanup.
       // eslint-disable-next-line react-hooks/exhaustive-deps
       const frame = frameRef.current;
       if (frame !== null) {
@@ -171,7 +174,7 @@ const Landing = () => {
       }
       clearTimeout(timeoutId);
     };
-  }, [setText, frameRef]);
+  }, [setText, frameRef, phrases]);
 
   return (
     <Container id="landing">

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
 import HomePageClient from '@/components/HomePageClient';
+import { SITE_NAME, SITE_URL } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Application Engineer Portfolio',
@@ -18,7 +19,7 @@ const structuredData = {
       '@type': 'Person',
       name: 'Ryan Simpson',
       jobTitle: 'Application Engineer',
-      url: 'https://ryansimpson.dev',
+      url: SITE_URL,
       sameAs: [
         'https://github.com/ryansmpsn',
         'https://www.linkedin.com/in/ryan-developer/'
@@ -26,8 +27,8 @@ const structuredData = {
     },
     {
       '@type': 'WebSite',
-      name: 'Ryan Simpson Portfolio',
-      url: 'https://ryansimpson.dev'
+      name: SITE_NAME,
+      url: SITE_URL
     },
     {
       '@type': 'SoftwareSourceCode',
